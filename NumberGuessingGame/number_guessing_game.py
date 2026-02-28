@@ -36,7 +36,7 @@ def score(difficulty, pogingen):
     score = (max_pogingen(difficulty) - pogingen) * difficulty
     return score
 
-## Generate an advice concerning the difficulty based on the acchieved score
+# Generate an advice concerning the difficulty based on the achieved score
 def advies_difficulty(score):
     if (score < 5):
         print("I would reccomend a lower difficulty next time")
@@ -89,4 +89,3 @@ def raad_het_nummer():
         score(difficulty, pogingen)
 
 # Calling the main game loop function
-raad_het_nummer()

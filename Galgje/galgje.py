@@ -11,6 +11,7 @@ import random
 # Todo: check whether the function "haal_woorden_weg" current functionality is complete
 
 
+
 def lees_woorden(bestandsnaam):
     file = open(bestandsnaam, "r")
 
@@ -66,7 +67,7 @@ def voeg_woorden_toe(bestaandsnaam, dict):
     print("List updated successfully")
 
 # voeg_woorden_toe("woorden.txt", lees_woorden("woorden.txt"))
-#
+
 def haal_woorden_weg(bestandsnaam):
     lst = lees_woorden('woorden.txt')
     newcontent = []
@@ -140,7 +141,7 @@ def speel_sessie():
 
     # Asks user for name, if the input is not equal to string it simply asks again
     naam = input("Please enter your name: ")
-    while type(naam) != str:
+    while naam is not str:
         print("This is an invalid name, please try again")
         naam = input("Please enter your name")
 
@@ -159,7 +160,6 @@ def speel_sessie():
         userGuess = input("Guess any letter: ")
         # If the guessed letter is contained within the list of characters in the word
         if pogingen == 0:
-            gamecompletion = True
             print("You have run out of guesses, feel free to try again, perhaps on a lower difficulty")
             break
         if userGuess in woord:
@@ -173,6 +173,8 @@ def speel_sessie():
             # If the user enters a guess that isn't a string
         elif type(userGuess) != type('d'):
             print("That's not a letter my dear fellow")
+
+
             # If the users guess is not contained within the word
         else:
             print("ja rip")
@@ -181,5 +183,3 @@ def speel_sessie():
     # Houdt pogingen bij
     # Logt resultaat van gebruiker in scorebestand
 
-
-speel_sessie()

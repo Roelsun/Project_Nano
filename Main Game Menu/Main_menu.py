@@ -16,10 +16,10 @@ def main_menu():
         for x in optionslist:
             print(x)
 
-        keuze = input("Please enter the number that is before your choice")
+        keuze = input("Please enter the number that is before your choice: ")
         try:
             keuze = int(keuze)
-            if keuze in [1,2,3,4]:
+            if keuze in [1, 2, 3, 4]:
                 validchoice = True
         except ValueError:
             print("That input was invalid, please try again")
@@ -37,31 +37,8 @@ def main_menu():
             # Leaderboards ->
             pass
         case 4:
-            pass
+            exit()
 
-
-    print("test")
-    """
-        1) Galgje_Menu
-		2) Een rondje NumberGuessing spelen
-			1) Moeilijkheidsgraad
-		3) Score's Inzien van Zowel Galgje als NumberGuessing
-		4) Stoppen
-
-    """
-
-    uChoice = input("Please choose one of the listed options: ")
-    match uChoice:
-        case 1:
-            pass
-        case 2:
-            pass
-        case 3:
-            pass
-        case 4:
-            pass
-    # etc
-    pass
 
 
 def introductie():
@@ -73,20 +50,45 @@ def secundaire_galgje_menu():
     # todo: Define the initial list of options that need to be available
     # todo: Define the initial input statement to acess the user's choice
     # todo: Set up a match statement for the choices, initially with simple pass statements, function calls come later
-    menuOpties = ["1) Speel een potje galgje", "2) Verander de moeilijkheid", "3) Verwijder een woord uit de woordenlijst", "4) Voeg woord toe aan de woordenlijst",
-                  '5) Toon aantal woorden in woordenlijst', "6) Stop het process"]
-    print("The following are the various options available related to hangman:")
-    for x in menuOpties:
-        print(f"{x}")
-    Galgje.lees_woorden("woorden.txt")
-    uChoice = input("Please enter the number that relates to your choice")
-    """	1) Speel een sessie  
-	    2) Kies moeilijkheid
-		3) Verwijder een woord uit de woordenlijst
-		4) Voeg woord toe aan de woordenlijst
-		5) Toon aantal woorden in de woordenlijst
-		6) Stoppen
-	"""
 
+    keuze = ""
+    validchoice = False
+    while not validchoice:
+        menuOpties = ["1) Speel een potje galgje", "2) Verwijder woorden uit de woordenlijst",
+                      "3) Voeg woord toe aan de woordenlijst",
+                      '4) Toon woorden in woordenlijst', "5) Stop het process"]
+
+        print("The following are the various options available related to hangman:")
+        for x in menuOpties:
+            print(f"{x}")
+
+        keuze = input("Please enter the number that is before your choice")
+        try:
+            keuze = int(keuze)
+            if keuze in [1, 2, 3, 4]:
+                validchoice = True
+        except ValueError:
+            print("That input was invalid, please try again")
+
+    match int(keuze):
+        case 1:
+            # Speel een potje galgje
+            Galgje.speel_sessie()
+
+        case 2:
+            # Verwijder een woord uit de woordenlijst
+            Galgje.haal_woorden_weg('../woorden.txt')
+
+        case 3:
+            # Toon woorden in woordenlijst
+            dict = Galgje.lees_woorden()
+            for x in dict:
+                print(x)
+
+        case 4:
+            pass
+        case 5:
+            # Stop het process
+            exit()
     pass
-secundaire_galgje_menu()
+main_menu()

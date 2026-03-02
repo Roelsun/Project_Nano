@@ -36,6 +36,10 @@ def score(difficulty, pogingen):
     score = (max_pogingen(difficulty) - pogingen) * difficulty
     return score
 
+def voeg_score_toe(naam, nummer, score):
+    with open("../Guessing_game_score.txt", "a+") as f:
+        f.writeline(f'User: {naam} has gotten a score of: {score} by guessing the number {nummer}')
+
 # Generate an advice concerning the difficulty based on the achieved score
 def advies_difficulty(score):
     if (score < 5):
@@ -49,16 +53,19 @@ def advies_difficulty(score):
 ## The function containing the main game loop,
 def raad_het_nummer():
     # Ask for user input for their name and the desired difficulty
-    name = input('Please enter your name: ')
+    naam = input('Please enter your name: ')
     difficulty = input('Choose your difficulty (1=Easy, 2=Normal, 3=Difficult): ')
+
     # Generate the random number based on difficulty settings
     cnumber = genereer_getal(difficulty)
 
     # Set pogingen to the max attempts for the given difficulty, and print that info to the user
     pogingen = max_pogingen(difficulty)
     print("You have " + str(pogingen) + " attempts to guess the number")
+
     # Initialize a variable to keep track of whether the user has correctly guessed the number
     correctGuess = False
+
     # Initialize a while loop to continue receiving user input, checking it and printing the relevant output
     while pogingen > 0 and correctGuess != True:
         uGuess = int(uInput())
@@ -68,6 +75,9 @@ def raad_het_nummer():
             final_score = score(difficulty, pogingen)
             print("Your score is: " + str(final_score))
             advies_difficulty(int(final_score))
+
+            voeg_score_toe(naam, cnumber, final_score)
+
             correctGuess = True
 
         elif(abs(uGuess - cnumber) <= 2):

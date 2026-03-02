@@ -69,7 +69,7 @@ def voeg_woorden_toe(bestaandsnaam, dict):
 # voeg_woorden_toe("woorden.txt", lees_woorden("woorden.txt"))
 
 def haal_woorden_weg(bestandsnaam):
-    lst = lees_woorden('woorden.txt')
+    lst = lees_woorden('../woorden.txt')
     newcontent = []
     with open(bestandsnaam) as f:
         for i, line in enumerate(f):
@@ -77,7 +77,7 @@ def haal_woorden_weg(bestandsnaam):
             print("{0}: {1}".format(i + 1, line))
             keuze = input("Would you like to keep this word, or remove it. Enter y to keep it, and n to remove it")
             validkeuze = False
-            while validkeuze == False and i < len(lst):
+            while not validkeuze and i < len(lst):
                 if keuze == 'y':
                     print("keep")
                     newcontent.append(f'{line} \n')
@@ -107,9 +107,9 @@ def bereken_score(aantal_levens_over, moeilijkheid):
     return score
 
 
-## Voegt de score, de naam en het gegokte woord toe aan het scorebestand
+# Voegt de score, de naam en het gegokte woord toe aan het scorebestand
 def voeg_score_toe(naam, woord, score):
-    file = open("score.txt", "a+")
+    file = open("../Galgje_score.txt", "a+")
     newLine = "User: " + naam + " has gotten a score of: " + str(score) + " with the word: " + woord + " \n"
     file.write(newLine)
 
@@ -125,7 +125,7 @@ def toon_tussenstand(woord, geraden_letters):
 
 ## Returnt een random gekozen woord met meegegeven moeilijkheidsgraad
 def kies_woord(moeilijkheidsgraad):
-    woorden_dict = lees_woorden("woorden.txt")
+    woorden_dict = lees_woorden("../woorden.txt")
     mogelijkheden = []
     for key in woorden_dict:
         if woorden_dict[key] == moeilijkheidsgraad:
@@ -141,9 +141,10 @@ def speel_sessie():
 
     # Asks user for name, if the input is not equal to string it simply asks again
     naam = input("Please enter your name: ")
-    while naam is not str:
-        print("This is an invalid name, please try again")
-        naam = input("Please enter your name")
+    #while naam is not str:
+    #    print("This is an invalid name, please try again")
+    #    print(naam)
+    #    naam = input("Please enter your name")
 
     # Kiest een random woord met de juiste moeilijkheidsgraad
     woord = kies_woord(int(moeilijkheidsgraad))
@@ -153,6 +154,7 @@ def speel_sessie():
 
     pogingen = max_poginingen(int(moeilijkheidsgraad))
     print(f'You have {pogingen} attempts to guess the word')
+
     # So long as the attempts dont run out, and the word isn't fully guessed:
     while gamecompletion == False:
         huidige_staat_woord = toon_tussenstand(woord, geraden_letters)

@@ -21,7 +21,8 @@ def genereer_getal(difficulty):
             print("You have chosen the hard difficulty")
             print("Your number will be between 1 and 100")
             return random.randrange(1, 100)
-# A function that uses a match statement to return the max attempts for any gjven difficulty
+
+# A function that uses a match statement to return the max attempts for any given difficulty
 def max_pogingen(difficulty):
     match difficulty:
         case "1":

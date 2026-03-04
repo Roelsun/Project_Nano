@@ -4,14 +4,14 @@ from NumberGuessingGame import number_guessing_game as NumberGuessingGame
 
 
 def main_menu():
-    # Todo: Define initial print statements within a seprate "Introduction" to provide an overview of the relevant options
-    # Todo: Define the initial match statement structure for the mainmenu
+    # Todo: Define initial print statements within a separate "Introduction" to provide an overview of the relevant options
+    # Todo: Define the initial match statement structure for the main menu
     # Todo: Add the function calls to the match statement below
+    optionslist = ["1) Het Galgje Menu", "2) A rond of number Guessing", "3) Leaderboards", "4) Exit"]
 
     validchoice = False
     keuze = ""
     while validchoice == False:
-        optionslist = ["1) Het Galgje Menu", "2) A rond of number Guessing", "3) Leaderboards", "4) Exit"]
 
         for x in optionslist:
             print(x)
@@ -47,10 +47,6 @@ def introductie():
 
 
 def secundaire_galgje_menu():
-    # todo: Define the initial list of options that need to be available
-    # todo: Define the initial input statement to acess the user's choice
-    # todo: Set up a match statement for the choices, initially with simple pass statements, function calls come later
-
     keuze = ""
     validchoice = False
     while not validchoice:
@@ -67,6 +63,8 @@ def secundaire_galgje_menu():
             keuze = int(keuze)
             if keuze in [1, 2, 3, 4]:
                 validchoice = True
+            else:
+                print("That input was invalid, please try again")
         except ValueError:
             print("That input was invalid, please try again")
 
@@ -77,16 +75,17 @@ def secundaire_galgje_menu():
 
         case 2:
             # Verwijder een woord uit de woordenlijst
-            Galgje.haal_woorden_weg('../woorden.txt')
+            Galgje.haal_woorden_weg()
 
         case 3:
-            # Toon woorden in woordenlijst
-            dict = Galgje.lees_woorden()
-            for x in dict:
-                print(x)
+            # Voeg woord toe aan woordenlijst
+            Galgje.voeg_woorden_toe('../woorden.txt', Galgje.lees_woorden('../woorden.txt'))
 
         case 4:
-            pass
+            # Toont de volledige woordenlijst
+            dict = Galgje.lees_woorden('../woorden.txt')
+            for x in dict:
+                print(x)
         case 5:
             # Stop het process
             exit()

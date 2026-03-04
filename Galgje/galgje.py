@@ -2,15 +2,12 @@
 # Functie om de woorden uit een txt bestand in te lezen, en op te slaan als dictionary
 import random
 
-
 # todo, spendeer 15 minuten met alle comments in het nederlands of in het engels te zetten ipv het wisselend te laten staan
 # todo, spendeer 15 minuten met comments toevoegen aan functies die ze nog missen
 # todo, spendeer 15 minuten met uitzoeken welke functionaliteit ik nog kan toevoegen aan dit onderdeel van p Nano
 # Todo: Voeg input validation toe aan de input voor moeilijkheidsgraad
 # Todo: Voeg input validation toe aan de input voor the user guess
-# Todo: check whether the function "haal_woorden_weg" current functionality is complete
-
-
+# Todo: check whether the function "haal_woorden_weg" has complete functionality
 
 def lees_woorden(bestandsnaam):
     file = open(bestandsnaam, "r")
@@ -45,8 +42,7 @@ def voeg_woorden_toe(bestaandsnaam, dict):
     # Basic function to write whatever words desired into the words file
     done = False
     while not done:
-        uinput = input(
-            "Please enter any word to add it to the list of possibilities, or done when you are done making additions: ")
+        uinput = input('Please enter any word to add it to the list of possibilities, or enter "done" when you have made your additions: ')
         if uinput == "done":
             print("Let us briefly go trough the list to check if you still wish to keep all current entries")
             done = True
@@ -58,37 +54,43 @@ def voeg_woorden_toe(bestaandsnaam, dict):
     for x in dict:
         print(f'{x}, Length of the word: {len(x)}')
 
-    file = open(bestaandsnaam, 'w+')
+
+    file = open('../woorden.txt', 'w+')
     for x in dict:
-        confirmation = input(f"Do you wish to add/keep this word?: {x} . Enter y/n to answer :")
-        if (confirmation == "y"):
-            file.write(f'{x} \n')
-            print("Word Updated successfully")
+        file.write(f'{x} \n')
     print("List updated successfully")
+
 
 # voeg_woorden_toe("woorden.txt", lees_woorden("woorden.txt"))
 
-def haal_woorden_weg(bestandsnaam):
+def haal_woorden_weg():
+
+    i = 0
     lst = lees_woorden('../woorden.txt')
+    print(lst)
+    file = open("../woorden.txt", "w+")
     newcontent = []
-    with open(bestandsnaam) as f:
-        for i, line in enumerate(f):
-            line = line.strip('\n')
-            print("{0}: {1}".format(i + 1, line))
-            keuze = input("Would you like to keep this word, or remove it. Enter y to keep it, and n to remove it")
-            validkeuze = False
-            while not validkeuze and i < len(lst):
-                if keuze == 'y':
-                    print("keep")
-                    newcontent.append(f'{line} \n')
-                    validkeuze = True
-                elif keuze == "n":
-                    print("Remove")
-                    validkeuze = True
-                else:
-                    print("Unknown input, try again")
-                    input(
-                        f' Would you like to keep this word: "{line}", or remove it. Enter y to keep it, and n to remove it ')
+
+    for line in lst:
+        line = line.strip('\n')
+        print("{0}: {1}".format(i + 1, line))
+        keuze = input("Would you like to keep this word, or remove it. Enter y to keep it, and n to remove it")
+        validkeuze = False
+        while not validkeuze and i < len(lst):
+            if keuze == 'y':
+                print("keep")
+                newcontent.append(line)
+                i += 1
+                validkeuze = True
+            elif keuze == "n":
+                print("Remove")
+                i += 1
+                validkeuze = True
+            else:
+                print("Unknown input, try again")
+                keuze = input(f' Would you like to keep this word: "{line}", or remove it. Enter y to keep it, and n to remove it: ')
+    for line in newcontent:
+        file.write(f"{line}\n")
 
 
 def max_poginingen(moeilijkheidsgraad):
@@ -173,15 +175,14 @@ def speel_sessie():
                 voeg_score_toe(naam, woord, bereken_score(pogingen, moeilijkheidsgraad))
                 gamecompletion = True
             # If the user enters a guess that isn't a string
-        elif type(userGuess) != type('d'):
+        elif type(userGuess) is not str:
             print("That's not a letter my dear fellow")
 
 
             # If the users guess is not contained within the word
         else:
+            # Houdt pogingen bij
             print("ja rip")
             pogingen = pogingen - 1
             print(f'You have {pogingen} attempts left')
-    # Houdt pogingen bij
-    # Logt resultaat van gebruiker in scorebestand
 

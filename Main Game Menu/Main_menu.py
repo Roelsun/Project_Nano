@@ -3,14 +3,10 @@ from Galgje import galgje as Galgje
 from NumberGuessingGame import number_guessing_game as NumberGuessingGame
 
 
-def main_menu():
-    # Todo: Define initial print statements within a separate "Introduction" to provide an overview of the relevant options
-    # Todo: Define the initial match statement structure for the main menu
-    # Todo: Add the function calls to the match statement below
+def main_menu(keuze=None):
     optionslist = ["1) Het Galgje Menu", "2) A rond of number Guessing", "3) Leaderboards", "4) Exit"]
 
     validchoice = False
-    keuze = ""
     while validchoice == False:
 
         for x in optionslist:
@@ -40,10 +36,46 @@ def main_menu():
             exit()
 
 
-
 def introductie():
     print("Introductory tomfoolery")
     pass
+
+
+def leaderboards():
+    optionslist = ["1) Galgje", "2) Number Guessing Game", "3) WIP", "4) EXIT"]
+
+    validchoice = False
+    keuze = ""
+    while validchoice == False:
+
+        for x in optionslist:
+            print(x)
+
+        keuze = input("Please enter the number that is before your choice: ")
+        try:
+            keuze = int(keuze)
+            if keuze in [1, 2, 3, 4]:
+                validchoice = True
+        except ValueError:
+            print("That input was invalid, please try again")
+
+    returnlist = []
+    match int(keuze):
+        case 1:
+            pass
+        case 2:
+            pass
+        case 3:
+            pass
+        case 4:
+            pass
+
+    for x in returnlist:
+        print(x)
+
+
+
+
 
 
 def secundaire_galgje_menu():
@@ -90,4 +122,6 @@ def secundaire_galgje_menu():
             # Stop het process
             exit()
     pass
+
+
 main_menu()

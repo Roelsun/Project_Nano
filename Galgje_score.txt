@@ -1,3 +1,2 @@
-User: Roel has gotten a score of: 22222222 with the word: liquidatie 
-User:  has gotten a score of: 22222222 with the word: liquidatie 
-User: Roel has gotten a score of: 22222222 with the word: liquidatie 
+User: Roel has gotten a score of: 6 with the word: score with 6 attempts left
+User: Roel has gotten a score of: 16 with the word: liquidatie with 8 attempts left

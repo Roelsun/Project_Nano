@@ -54,7 +54,7 @@ def voeg_woorden_toe(bestaandsnaam, dict):
     for x in dict:
         print(f'{x}, Length of the word: {len(x)}')
 
-
+    # Todo: update this piece of code to simply call the function "sla_woorden_op"
     file = open('../woorden.txt', 'w+')
     for x in dict:
         file.write(f'{x} \n')
@@ -103,17 +103,17 @@ def max_poginingen(moeilijkheidsgraad):
             return 6
 
 
-## Bereken de score adhv de volgende berekeningen: (aantal_levens_over * moeilijkheid)
+# Bereken de score adhv de volgende berekeningen: (aantal_levens_over * moeilijkheid)
 def bereken_score(aantal_levens_over, moeilijkheid):
     score = aantal_levens_over * moeilijkheid
     return score
 
 
 # Voegt de score, de naam en het gegokte woord toe aan het scorebestand
-def voeg_score_toe(naam, woord, score):
+def voeg_score_toe(naam, woord, score, pogingen):
     file = open("../Galgje_score.txt", "a+")
-    newLine = "User: " + naam + " has gotten a score of: " + str(score) + " with the word: " + woord + " \n"
-    file.write(newLine)
+    new_line = f"User: {naam} has gotten a score of: {score} with the word: {woord} with {pogingen} attempts left\n"
+    file.write(new_line)
 
 
 # Toont de gerade letters als volgt V _ _ R _ E E L D van het woord "voorbeeld"
@@ -140,21 +140,17 @@ def speel_sessie():
 
     # Vraagt om de gewenste moeilijkheidsgraad
     moeilijkheidsgraad = input("What would you like the difficulty to be?: ")
-
+    moeilijkheidsgraad = int(moeilijkheidsgraad)
     # Asks user for name, if the input is not equal to string it simply asks again
     naam = input("Please enter your name: ")
-    #while naam is not str:
-    #    print("This is an invalid name, please try again")
-    #    print(naam)
-    #    naam = input("Please enter your name")
 
     # Kiest een random woord met de juiste moeilijkheidsgraad
-    woord = kies_woord(int(moeilijkheidsgraad))
+    woord = kies_woord(moeilijkheidsgraad)
 
     gamecompletion = False
     geraden_letters = []
 
-    pogingen = max_poginingen(int(moeilijkheidsgraad))
+    pogingen = max_poginingen(moeilijkheidsgraad)
     print(f'You have {pogingen} attempts to guess the word')
 
     # So long as the attempts dont run out, and the word isn't fully guessed:
@@ -162,18 +158,28 @@ def speel_sessie():
         huidige_staat_woord = toon_tussenstand(woord, geraden_letters)
         print(huidige_staat_woord)
         userGuess = input("Guess any letter: ")
+
         # If the guessed letter is contained within the list of characters in the word
         if pogingen == 0:
             print("You have run out of guesses, feel free to try again, perhaps on a lower difficulty")
             break
+
+        if userGuess == "":
+            print("You have chosen to end the game")
+            break
+
+        # If the guessed letter is contained within the list of characters in the word
         if userGuess in woord:
             geraden_letters.append(userGuess)
             huidige_staat_woord = toon_tussenstand(woord, geraden_letters)
             # If all Unknown letters have been guessed, the user has won and program exits out of the loop
             if "_" not in huidige_staat_woord:
+                score = bereken_score(pogingen, moeilijkheidsgraad)
+                voeg_score_toe(naam, woord, score, pogingen)
                 print("You have won!")
-                voeg_score_toe(naam, woord, bereken_score(pogingen, moeilijkheidsgraad))
+                print(f"You got a score of {score} by guessing the word {woord} with {pogingen} attempts left")
                 gamecompletion = True
+
             # If the user enters a guess that isn't a string
         elif type(userGuess) is not str:
             print("That's not a letter my dear fellow")
@@ -182,7 +188,7 @@ def speel_sessie():
             # If the users guess is not contained within the word
         else:
             # Houdt pogingen bij
-            print("ja rip")
+            print("That is unfortunately not correct")
             pogingen = pogingen - 1
             print(f'You have {pogingen} attempts left')
 

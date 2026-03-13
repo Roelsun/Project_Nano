@@ -2,6 +2,7 @@
 # Functie om de woorden uit een txt bestand in te lezen, en op te slaan als dictionary
 import random
 
+
 # todo, spendeer 15 minuten met alle comments in het nederlands of in het engels te zetten ipv het wisselend te laten staan
 # todo, spendeer 15 minuten met comments toevoegen aan functies die ze nog missen
 # todo, spendeer 15 minuten met uitzoeken welke functionaliteit ik nog kan toevoegen aan dit onderdeel van p Nano
@@ -42,7 +43,8 @@ def voeg_woorden_toe(bestaandsnaam, dict):
     # Basic function to write whatever words desired into the words file
     done = False
     while not done:
-        uinput = input('Please enter any word to add it to the list of possibilities, or enter "done" when you have made your additions: ')
+        uinput = input(
+            'Please enter any word to add it to the list of possibilities, or enter "done" when you have made your additions: ')
         if uinput == "done":
             print("Let us briefly go trough the list to check if you still wish to keep all current entries")
             done = True
@@ -64,7 +66,6 @@ def voeg_woorden_toe(bestaandsnaam, dict):
 # voeg_woorden_toe("woorden.txt", lees_woorden("woorden.txt"))
 
 def haal_woorden_weg():
-
     i = 0
     lst = lees_woorden('../woorden.txt')
     print(lst)
@@ -88,7 +89,8 @@ def haal_woorden_weg():
                 validkeuze = True
             else:
                 print("Unknown input, try again")
-                keuze = input(f' Would you like to keep this word: "{line}", or remove it. Enter y to keep it, and n to remove it: ')
+                keuze = input(
+                    f' Would you like to keep this word: "{line}", or remove it. Enter y to keep it, and n to remove it: ')
     for line in newcontent:
         file.write(f"{line}\n")
 
@@ -112,8 +114,25 @@ def bereken_score(aantal_levens_over, moeilijkheid):
 # Voegt de score, de naam en het gegokte woord toe aan het scorebestand
 def voeg_score_toe(naam, woord, score, pogingen):
     file = open("../Galgje_score.txt", "a+")
-    new_line = f"User: {naam} has gotten a score of: {score} with the word: {woord} with {pogingen} attempts left\n"
-    file.write(new_line)
+    newline = f'{naam},{score}, {woord}, {pogingen} \n'
+    file.write(newline)
+    file.close()
+
+
+def lees_scores_in():
+    file = open("../Galgje_score.txt")
+    lines = file.readlines()
+
+    return_lines = []
+
+    for line in lines:
+        line = line.split(',')
+        return_lines.append(
+            F"User:{line[0]} has achieved a score of {line[1]}! They guessed the word:{line[2]} with{line[3]} attempts left!")
+
+    return_lines.sort()
+
+    return return_lines
 
 
 # Toont de gerade letters als volgt V _ _ R _ E E L D van het woord "voorbeeld"
@@ -137,7 +156,6 @@ def kies_woord(moeilijkheidsgraad):
 
 ## Main game loop
 def speel_sessie():
-
     # Vraagt om de gewenste moeilijkheidsgraad
     moeilijkheidsgraad = input("What would you like the difficulty to be?: ")
     moeilijkheidsgraad = int(moeilijkheidsgraad)
@@ -154,7 +172,7 @@ def speel_sessie():
     print(f'You have {pogingen} attempts to guess the word')
 
     # So long as the attempts dont run out, and the word isn't fully guessed:
-    while gamecompletion == False:
+    while gamecompletion is False:
         huidige_staat_woord = toon_tussenstand(woord, geraden_letters)
         print(huidige_staat_woord)
         userGuess = input("Guess any letter: ")
@@ -184,11 +202,9 @@ def speel_sessie():
         elif type(userGuess) is not str:
             print("That's not a letter my dear fellow")
 
-
             # If the users guess is not contained within the word
         else:
             # Houdt pogingen bij
             print("That is unfortunately not correct")
             pogingen = pogingen - 1
             print(f'You have {pogingen} attempts left')
-

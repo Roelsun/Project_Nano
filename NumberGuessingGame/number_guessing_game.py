@@ -1,9 +1,12 @@
 import random
+
+
 # Initialize game loop
 # Print game rules, number between 0 - 10, 3 guesses after which the computer will respond higher/lower, after wrong 3 attempts you fail
 # Function to receive user input, and convert it to int to minimize repetition
 def uInput():
     return int(input('What is your guess?: '))
+
 
 # Generate a random number, using the random library, with the ranges based on the difficulty
 def genereer_getal(difficulty):
@@ -22,6 +25,7 @@ def genereer_getal(difficulty):
             print("Your number will be between 1 and 100")
             return random.randrange(1, 100)
 
+
 # A function that uses a match statement to return the max attempts for any given difficulty
 def max_pogingen(difficulty):
     match difficulty:
@@ -32,14 +36,18 @@ def max_pogingen(difficulty):
         case "3":
             return 10
 
+
 # Calculate score based on the max attempts, the attempts left over multiplied by difficulty
 def score(difficulty, pogingen):
     score = (max_pogingen(difficulty) - pogingen) * difficulty
     return score
 
-def voeg_score_toe(naam, nummer, score):
-    with open("../Guessing_game_score.txt", "a+") as f:
-        f.writeline(f'User: {naam} has gotten a score of: {score} by guessing the number {nummer}')
+
+def voeg_score_toe(naam, cijfer, score, pogingen):
+    file = open("../Guessing_game_score", "a+")
+    newline = f'{naam},{score}, {cijfer}, {pogingen}'
+    file.write(newline)
+
 
 # Generate an advice concerning the difficulty based on the achieved score
 def advies_difficulty(score):
@@ -51,7 +59,23 @@ def advies_difficulty(score):
         print("This is just too easy for you, try a harder difficulty")
 
 
-## The function containing the main game loop,
+def lees_scores_in():
+    file = open("../Guessing_game_score")
+    lines = file.readlines()
+
+    return_lines = []
+
+    for line in lines:
+        line = line.split(',')
+
+        return_lines.append(
+            F"User:{line[0]} has achieved a score of {line[1]}! They guessed the number:{line[2]} with{line[3]} attempts left!")
+
+    return_lines.sort()
+
+    return return_lines
+
+# The function containing the main game loop,
 def raad_het_nummer():
     # Ask for user input for their name and the desired difficulty
     naam = input('Please enter your name: ')
@@ -77,11 +101,11 @@ def raad_het_nummer():
             print("Your score is: " + str(final_score))
             advies_difficulty(int(final_score))
 
-            voeg_score_toe(naam, cnumber, final_score)
+            voeg_score_toe(naam, cnumber, final_score, pogingen)
 
             correctGuess = True
 
-        elif(abs(uGuess - cnumber) <= 2):
+        elif (abs(uGuess - cnumber) <= 2):
             print("Je bent dichtbij!")
             pogingen = pogingen - 1
 

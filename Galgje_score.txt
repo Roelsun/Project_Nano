@@ -1,2 +1,3 @@
-User: Roel has gotten a score of: 6 with the word: score with 6 attempts left
-User: Roel has gotten a score of: 16 with the word: liquidatie with 8 attempts left
+Roel,16, liquidatie, 8
+Roel,8, liquidatie, 4
+Roel,9, etui, 9

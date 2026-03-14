@@ -95,7 +95,7 @@ def haal_woorden_weg():
         file.write(f"{line}\n")
 
 
-def max_poginingen(moeilijkheidsgraad):
+def max_pogingen(moeilijkheidsgraad):
     match moeilijkheidsgraad:
         case 1:
             return 10
@@ -168,7 +168,7 @@ def speel_sessie():
     gamecompletion = False
     geraden_letters = []
 
-    pogingen = max_poginingen(moeilijkheidsgraad)
+    pogingen = max_pogingen(moeilijkheidsgraad)
     print(f'You have {pogingen} attempts to guess the word')
 
     # So long as the attempts dont run out, and the word isn't fully guessed:

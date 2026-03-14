@@ -51,9 +51,9 @@ def voeg_score_toe(naam, cijfer, score, pogingen):
 
 # Generate an advice concerning the difficulty based on the achieved score
 def advies_difficulty(score):
-    if (score < 5):
+    if score < 5:
         print("I would reccomend a lower difficulty next time")
-    elif (score < 12):
+    elif score < 12:
         print("This is the correct difficulty for you")
     else:
         print("This is just too easy for you, try a harder difficulty")
@@ -92,7 +92,7 @@ def raad_het_nummer():
     correctGuess = False
 
     # Initialize a while loop to continue receiving user input, checking it and printing the relevant output
-    while pogingen > 0 and correctGuess != True:
+    while pogingen > 0 and correctGuess is not True:
         uGuess = int(uInput())
         # If the user input and the computer's guess are the same, print the win message and score.
         if uGuess == cnumber:
@@ -105,19 +105,19 @@ def raad_het_nummer():
 
             correctGuess = True
 
-        elif (abs(uGuess - cnumber) <= 2):
+        elif abs(uGuess - cnumber) <= 2:
             print("Je bent dichtbij!")
             pogingen = pogingen - 1
 
-        elif (uGuess > cnumber):
+        elif uGuess > cnumber:
             pogingen = pogingen - 1
             print('Think Lower, You have ' + str(pogingen) + ' attempts left')
 
-        elif (uGuess < cnumber):
+        elif uGuess < cnumber:
             pogingen = pogingen - 1
             print('Think Higher, You have ' + str(pogingen) + ' attempts left')
 
-    if (not correctGuess):
+    if not correctGuess:
         print("Jammer, je hebt het niet kunnen raden, het juiste getal was " + str(cnumber))
         advies_difficulty(0)
     else:
